@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "370893466714",
+    "project_id": "conference-tracker-proj",
+    "storage_bucket": "conference-tracker-proj.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370893466714:android:62bcb993a3122009b1bc63",
+        "android_client_info": {
+          "package_name": "com.example.conference_app_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACY6bv0hzZcgwN77fGGjFTGavCV6aMY1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
