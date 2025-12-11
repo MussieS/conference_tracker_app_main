@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../models/contact.dart';
 
@@ -12,6 +13,20 @@ class ContactCard extends StatelessWidget {
     if (parts.isEmpty) return '';
     if (parts.length == 1) return parts[0][0].toUpperCase();
     return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
+
+  Future<void> _openLinkedIn() async {
+    if (contact.linkedinUrl == null || contact.linkedinUrl!.isEmpty) return;
+
+    var urlString = contact.linkedinUrl!.trim();
+    if (!urlString.startsWith('http')) {
+      urlString = 'https://$urlString';
+    }
+    final uri = Uri.parse(urlString);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
 
   @override
@@ -65,6 +80,9 @@ class ContactCard extends StatelessWidget {
   }
 
   Widget _buildNameRow(ColorScheme scheme) {
+    final hasLinkedIn =
+        contact.linkedinUrl != null && contact.linkedinUrl!.isNotEmpty;
+
     return Row(
       children: [
         Expanded(
@@ -81,9 +99,24 @@ class ContactCard extends StatelessWidget {
           size: 18,
           color: scheme.primary,
         ),
+        if (hasLinkedIn) ...[
+          const SizedBox(width: 6),
+          InkWell(
+            onTap: _openLinkedIn,
+            borderRadius: BorderRadius.circular(999),
+            child: const Padding(
+              padding: EdgeInsets.all(4.0),
+              child: Icon(
+                Icons.link,
+                size: 18,
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
+
 
   Widget _buildRoleRow() {
     return Row(

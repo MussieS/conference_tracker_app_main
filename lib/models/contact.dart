@@ -4,6 +4,8 @@ class Contact {
   final String company;
   final String conference;
   final String note;
+  final String? linkedinUrl;
+
 
   const Contact({
     required this.name,
@@ -11,6 +13,7 @@ class Contact {
     required this.company,
     required this.conference,
     required this.note,
+    this.linkedinUrl,
   });
 
   factory Contact.fromMap(Map<String, dynamic> data) {
@@ -20,6 +23,7 @@ class Contact {
       company: data['company'] ?? '',
       conference: data['conference'] ?? '',
       note: data['note'] ?? '',
+      linkedinUrl: data['linkedinUrl'],
     );
   }
 
@@ -30,6 +34,8 @@ class Contact {
       'company': company,
       'conference': conference,
       'note': note,
+      if (linkedinUrl != null && linkedinUrl!.isNotEmpty)
+        'linkedinUrl': linkedinUrl,
     };
   }
 }
@@ -43,6 +49,7 @@ const List<Contact> demoContacts = [
     conference: 'GIS Annual Conference 2025',
     note:
     'We discussed using my expenditure analysis project to study claim frequencies.',
+    linkedinUrl: 'https://www.linkedin.com/in/sample-sam',
   ),
   Contact(
     name: 'Alex Lee',
@@ -50,6 +57,7 @@ const List<Contact> demoContacts = [
     company: 'Milliman',
     conference: 'IABA Conference 2025',
     note: 'Talked about importance of Exam P and predictive analytics internship.',
+    linkedinUrl: 'https://www.linkedin.com/in/sample-alex',
   ),
   Contact(
     name: 'Taylor Brown',

@@ -20,6 +20,7 @@ class _AddContactSheetState extends State<AddContactSheet> {
   final _companyController = TextEditingController();
   final _conferenceController = TextEditingController();
   final _noteController = TextEditingController();
+  final _linkedinController = TextEditingController();
 
   bool _isSaving = false;
 
@@ -30,6 +31,7 @@ class _AddContactSheetState extends State<AddContactSheet> {
     _companyController.dispose();
     _conferenceController.dispose();
     _noteController.dispose();
+    _linkedinController.dispose();
     super.dispose();
   }
 
@@ -38,12 +40,15 @@ class _AddContactSheetState extends State<AddContactSheet> {
 
     setState(() => _isSaving = true);
 
+    final trimmedLink = _linkedinController.text.trim();
+
     final contact = Contact(
       name: _nameController.text.trim(),
       role: _roleController.text.trim(),
       company: _companyController.text.trim(),
       conference: _conferenceController.text.trim(),
       note: _noteController.text.trim(),
+      linkedinUrl: trimmedLink.isEmpty ? null : trimmedLink,
     );
 
     await widget.firestoreService.addContact(contact);
@@ -130,6 +135,11 @@ class _AddContactSheetState extends State<AddContactSheet> {
           controller: _conferenceController,
           label: 'Conference',
           icon: Icons.event_outlined,
+        ),
+        _buildTextField(
+        controller: _linkedinController,
+        label: 'LinkedIn URL (optional)', // NEW
+        icon: Icons.link,
         ),
         _buildTextField(
           controller: _noteController,
